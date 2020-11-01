@@ -22,27 +22,32 @@ class DishDetail extends Component{
             );
         }
     }
-    renderComments(dish)
-    {
-        if(dish!=null)
-        {
-            const comments=this.props.selectedDish.comments.slice();
-            const show=comments.map(com=>{
-                return(
-                <li key={com.id} className="my-3"><p className="mb-2">{com.comment}</p><p>--{com.author},{com.date}</p></li>
-                );
-            })
-            return(
-                show
-            );
+    renderComments(comments) {
+        if(comments != null) {
+          const commentListItems = comments.map((comment) =>
+             {
+               return (
+                      <li key={comment.id}>
+                         <p> {comment.comment} </p>
+                         <p>--- {comment.author}, {comment.date}</p>
+                      </li>
+               );
+             });
+             return (
+               <div className="col-12 col-md-5 m-1">
+                  <h4>Comments</h4>
+                  <ul className="list-unstyled">
+                     { commentListItems }
+                  </ul>
+               </div>
+             );
         }
-        else
-        {
-            return(
-                <div></div>
-            );
+        else {
+          return(
+            <div></div>
+          );
         }
-    }
+      }
     renderHeading(dish)
     {
         if(dish!=null)
@@ -55,19 +60,17 @@ class DishDetail extends Component{
         }
     }
     render(){
-        return(
-            <div className="row mt-2">
-                <div  className="col-12 col-md-5">
-                {this.renderDish(this.props.selectedDish)}
+        if (this.props.dish != null) {
+            return(
+                <div className="row">
+                      {this.renderDish(this.props.dish)}
+                      {this.renderComments(this.props.dish.comments)}
                 </div>
-                <div className="col-12 col-md-5">
-                {this.renderHeading(this.props.selectedDish)}
-                <ul className="list-unstyled">
-                    {this.renderComments(this.props.selectedDish)}
-                </ul>
-                </div>
-            </div>
-        );
+            );
+          }
+          else {
+            return (<div></div>);
+          }
     }
 }
 
