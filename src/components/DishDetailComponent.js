@@ -57,11 +57,13 @@ class DishDetail extends Component{
         }
     }
     render(){
+
         if (this.props.selectedDish != null) {
             return(
                 <div className="row">
                       {this.renderDish(this.props.selectedDish)}
                       {this.renderComments(this.props.selectedDish.comments)}
+
                 </div>
             );
           }
