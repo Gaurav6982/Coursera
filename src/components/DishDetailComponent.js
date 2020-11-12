@@ -82,7 +82,7 @@ class CommentForm extends Component{
       );
   }
 }
-function renderDish(dish) {
+function RenderDish({dish}) {
   if(dish!=null)
   {
   return(
@@ -100,7 +100,7 @@ function renderDish(dish) {
   else
   return(<div></div>);
 }
-function renderComments(comments,addComment,dishId) {
+function RenderComments({comments,addComment,dishId}) {
   if(comments != null) {
     const commentListItems = comments.map((comment) =>
        {
@@ -136,23 +136,23 @@ function DishDetail(props){
       {
         return (<h4>{props.errMess}</h4>);
       }
-      else if (props.selectedDish != null) {
+      else if (props.dish != null) {
           return(
               <div className="container">
                 <div className="row my-2">
                   <Breadcrumb>
                     <BreadcrumbItem><Link to="/menu">MENU</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>{props.selectedDish.name}</BreadcrumbItem>
+                    <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
                   </Breadcrumb>
                   <div className="col-12">
-                    <h3>{props.selectedDish.name}</h3>
+                    <h3>{props.dish.name}</h3>
                     <hr/>
                   </div>
                 </div>
               <div className="row">
 
-                    {renderDish(props.selectedDish)}
-                    {renderComments(props.comments,props.addComment,props.selectedDish.id)}
+                    <RenderDish dish={props.dish}/>
+                    <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
                  
               </div>
               </div>
