@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {LocalForm,Control,Errors} from 'react-redux-form'
 import {Loading} from './LoadingComponent'
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 const minLength=(len)=>(val)=>val && (val.length>=len);
 const maxLength=(len)=>(val)=>!val || (val.length<=len);
 class CommentForm extends Component{
@@ -87,6 +88,11 @@ function RenderDish({dish}) {
   {
   return(
     <div className="col-12 col-md-5 my-2">
+      <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
         <Card>
           <CardImg top src={baseUrl + dish.image} alt={dish.name} />
           <CardBody>
@@ -94,6 +100,7 @@ function RenderDish({dish}) {
              <CardText>{dish.description}</CardText>
           </CardBody>
         </Card>
+        </FadeTransform>
      </div>
        );
   }
@@ -102,20 +109,26 @@ function RenderDish({dish}) {
 }
 function RenderComments({comments,postComment,dishId}) {
   if(comments != null) {
+    
     const commentListItems = comments.map((comment) =>
        {
          return (
+          <Fade in>
                 <li key={comment.id}>
                    <p> {comment.comment} </p>
                    <p>--- {comment.author}, {comment.date}</p>
                 </li>
+                </Fade>
          );
        });
+    
        return (
          <div className="col-12 col-md-5 my-2">
             <h4>Comments</h4>
             <ul className="list-unstyled">
+            <Stagger in>
                { commentListItems }
+               </Stagger>
             </ul>
             <CommentForm postComment={postComment} dishId={dishId}/>
          </div>
