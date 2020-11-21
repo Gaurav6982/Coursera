@@ -14,8 +14,9 @@ class Contact extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);        
     }
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.props.postFeedback(values.firstname,values.lastname,values.telnum,values.email,values.agree,values.ContactType,values.message);
+        // console.log('Current State is: ' + JSON.stringify(values));
+        // alert('Current State is: ' + JSON.stringify(values));
         this.props.resetFeedbackForm();
     }
    
@@ -67,7 +68,7 @@ class Contact extends Component{
                             <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
-                                    <Control.text model=".first" id="firstname" name="firstname"
+                                    <Control.text model=".firstname" id="firstname" name="firstname"
                                         placeholder="First Name"
                                         className="form-control"
                                         validators={{
@@ -75,7 +76,7 @@ class Contact extends Component{
                                         }}/>
                                         <Errors
                                             className="text-danger"
-                                            model=".first"
+                                            model=".firstname"
                                             show="touched"
                                             messages={{
                                                 required:'Required ,',
@@ -88,14 +89,14 @@ class Contact extends Component{
                             <Row className="form-group">
                                 <Label htmlFor="lastname" md={2}>Last Name</Label>
                                 <Col md={10}>
-                                    <Control.text model=".last" id="lastname" name="lastname"
+                                    <Control.text model=".lastname" id="lastname" name="lastname"
                                         placeholder="Last Name"
                                         className="form-control" validators={{
                                             required,minLength:minLength(3),maxLength:maxLength(15)
                                         }}/>
                                         <Errors
                                             className="text-danger"
-                                            model=".last"
+                                            model=".lastname"
                                             show="touched"
                                             messages={{
                                                 required:'Required ,',
@@ -108,14 +109,14 @@ class Contact extends Component{
                             <Row className="form-group">
                             <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
                                 <Col md={10}>
-                                    <Control.text model=".tel" id="telnum" name="telnum"
+                                    <Control.text model=".telnum" id="telnum" name="telnum"
                                         placeholder="Tel. number"
                                        className="form-control" validators={{
                                         required,minLength:minLength(10),maxLength:maxLength(10),isNumber
                                     }}/>
                                     <Errors
                                         className="text-danger"
-                                        model=".tel"
+                                        model=".telnum"
                                         show="touched"
                                         messages={{
                                             required:'Required ,',
@@ -160,7 +161,7 @@ class Contact extends Component{
                                     </div>
                                 </Col>
                                 <Col md={{size: 3, offset: 1}}>
-                                    <Control.select model=".contact" name="contactType"
+                                    <Control.select model=".contactType" name="contactType"
                                             id="contactType"
                                            className="form-control">
                                         <option>Tel.</option>
